@@ -1,39 +1,111 @@
-import React from 'react'
-import '../styles/Horizon.css'
-import mariposa from '../assets/servicios/mariposa.png'
-import atencion from '../assets/Gabinete-Psicologico.png'
-import ContactForm from '../components/ContactForm'
+import React, { useState } from 'react';
+import '../styles/Horizon.css';
+import mariposa from '../assets/servicios/mariposa.png';
+import atencion from '../assets/Gabinete-Psicologico.png';
+import ContactForm from '../components/ContactForm';
+import pareja from '../assets/horizon/terapia-pareja.jpeg';
+import ansiedad from '../assets/horizon/ansiedad.jpg';
+import Colegio from '../assets/horizon/colegio.jpeg';
+import Infantes from '../assets/horizon/infantes.png';
+import Universidades from '../assets/horizon/universidad.jpeg';
+import depresion from '../assets/horizon/depresion.jpg';
+import adolescentes from '../assets/horizon/adolecentes.jpeg';
+import autoestima from '../assets/horizon/autoestima.png';
 
-import pareja from '../assets/horizon/terapia-pareja.jpeg'
-import ansiedad from '../assets/horizon/ansiedad.jpg'
-import depresion from '../assets/horizon/depresion.jpg'
-import adolescentes from '../assets/horizon/adolecentes.jpeg'
-import autoestima from '../assets/horizon/autoestima.png'
+// Imágenes para el carrusel de inspiración
+import inspiration1 from '../assets/horizon/1.jpg';
+import inspiration2 from '../assets/horizon/2.jpg';
+import inspiration3 from '../assets/horizon/3.jpg';
+import inspiration4 from '../assets/horizon/4.jpg';
 
 function Horizon() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const inspirationImages = [
+    { src: inspiration1, alt: "Inspiración 1", caption: "Crecimiento personal" },
+    { src: inspiration2, alt: "Inspiración 2", caption: "Armonía interior" },
+    { src: inspiration3, alt: "Inspiración 3", caption: "Bienestar emocional" },
+    { src: inspiration4, alt: "Inspiración 4", caption: "Equilibrio mental" }
+  ];
+
+  const nextSlide = () => {
+    setActiveIndex((prevIndex) => 
+      prevIndex === inspirationImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prevIndex) => 
+      prevIndex === 0 ? inspirationImages.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <div className="horizon-wrapper">
       <section className="horizon-hero">
-        <div className="hero-content">
-          <img src={mariposa} alt="Horizon~TE mariposa" className="hero-image-left" />
-          <div>
-            <h1>Gabinete Psicológico Horizon-TE</h1>
-            <p>
-              Apoyo terapéutico profesional con enfoque psicoanalítico y cognitivo-conductual, orientado al bienestar integral.
-            </p>
-          </div>
-        </div>
-      </section>
+  <div className="hero-bg-pattern"></div>
+  <div className="hero-content">
+    <div className="logo-container">
+      <img src={mariposa} alt="Horizon~TE mariposa" className="hero-image-left" />
+      <div className="logo-circle"></div>
+      <div className="logo-pulse"></div>
+    </div>
+    <div className="hero-text">
+      <h1>
+        <span className="hero-title-main">Gabinete Psicológico</span>
+        <span className="hero-title-sub">Horizon-TE</span>
+      </h1>
+      <p className="hero-description">
+        Apoyo terapéutico profesional con enfoque psicoanalítico y cognitivo-conductual, 
+        orientado al bienestar integral.
+      </p>
+      <div className="hero-cta">
+        <a href="#contacto" className="cta-button">Solicitar Consulta</a>
+        <a href="#servicios" className="cta-button secondary">Nuestros Servicios</a>
+      </div>
+    </div>
+  </div>
+  <div className="hero-waves"></div>
+</section>
 
       <div className="horizon-body">
         <aside className="toc">
-          <h3>Contenido</h3>
+          <div className="toc-header">
+            <h3>Contenido</h3>
+            <div className="toc-decoration"></div>
+          </div>
           <ul>
-            <li><a href="#que-es">¿Qué es Horizon-TE?</a></li>
-            <li><a href="#ubicacion">Ubicación y contacto</a></li>
-            <li><a href="#servicios">Servicios que ofrecemos</a></li>
-            <li><a href="#inspiracion">Inspiración que nos guía</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li>
+              <a href="#que-es" className="toc-link">
+                <span className="toc-icon"></span>
+                <span>¿Qué es Horizon-TE?</span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="#servicios" className="toc-link">
+                <span className="toc-icon"></span>
+                <span>Servicios que ofrecemos</span>
+              </a>
+            </li>
+            <li>
+              <a href="#inspiracion" className="toc-link">
+                <span className="toc-icon"></span>
+                <span>Inspiración que nos guía</span>
+              </a>
+            </li>
+            <li>
+              <a href="#ubicacion" className="toc-link">
+                <span className="toc-icon"></span>
+                <span>Ubicación y contacto</span>
+              </a>
+            </li>
+            <li>
+              <a href="#contacto" className="toc-link">
+                <span className="toc-icon"></span>
+                <span>Contacto</span>
+              </a>
+            </li>
           </ul>
         </aside>
 
@@ -47,70 +119,79 @@ function Horizon() {
             <img src={atencion} alt="Atención psicológica" className="section-image" />
           </div>
 
-         
           <div id="servicios">
             <h2>Servicios que ofrecemos</h2>
-            <p>
+            <p className="service-intro">
               Trabajamos bajo dos enfoques complementarios: el psicoanalítico, que busca explorar lo inconsciente,
               y el cognitivo-conductual, que permite intervenir en patrones mentales y conductuales.
             </p>
-            <p>
+            <p className="service-intro">
               Cada sesión tiene una duración de 45 minutos, adaptada a las necesidades individuales, familiares u organizacionales.
             </p>
 
             <div className="services-grid">
-              <div className="service-card">
-                <img src={pareja} alt="Terapia de pareja" />
-                <h3>Terapia de Pareja</h3>
-                <p>Resolución de conflictos, comunicación afectiva y reconstrucción del vínculo emocional.</p>
-              </div>
-              <div className="service-card">
-                <img src={ansiedad} alt="Ansiedad" />
-                <h3>Ansiedad y Estrés</h3>
-                <p>Técnicas de relajación, gestión emocional y reestructuración cognitiva.</p>
-              </div>
-              <div className="service-card">
-                <img src={depresion} alt="Depresión" />
-                <h3>Depresión</h3>
-                <p>Apoyo psicológico para fortalecer autoestima, motivación y manejo emocional.</p>
-              </div>
-              <div className="service-card">
-                <img src={adolescentes} alt="Adolescentes" />
-                <h3>Adolescentes</h3>
-                <p>Apoyo en etapas de cambio, identidad, relaciones y gestión de emociones.</p>
-              </div>
-              <div className="service-card">
-                <img src={autoestima} alt="Autoestima" />
-                <h3>Autoestima y Crecimiento Personal</h3>
-                <p>Desarrollo de confianza, autovaloración y habilidades emocionales.</p>
-              </div>
-              <div className="service-card">
-                <img src={autoestima} alt="Autoestima" />
-                <h3>Infantes</h3>
-                <p>Estimulación emocional y social mediante juego terapéutico adaptado a la edad.</p>
-              </div>
-              <div className="service-card">
-                <img src={autoestima} alt="Autoestima" />
-                <h3>Colegios</h3>
-                <p>Talleres de inteligencia emocional y prevención del bullying para estudiantes, familias y docentes.</p>
-              </div>
-              <div className="service-card">
-                <img src={autoestima} alt="Autoestima" />
-                <h3>Universidades</h3>
-                <p>Orientación vocacional y apoyo emocional frente al estrés académico y la toma de decisiones.</p>
-              </div>
+              {[
+                { img: pareja, title: "Terapia de Pareja", desc: "Resolución de conflictos, comunicación afectiva y reconstrucción del vínculo emocional.", testimonial: '"La terapia nos ayudó a recuperar la confianza y comunicación en nuestra relación."', author: "- Carlos y Ana M." },
+                { img: ansiedad, title: "Ansiedad y Estrés", desc: "Técnicas de relajación, gestión emocional y reestructuración cognitiva.", testimonial: '"Aprendí herramientas prácticas para manejar mi ansiedad en situaciones difíciles."', author: "- Laura G." },
+                { img: depresion, title: "Depresión", desc: "Apoyo psicológico para fortalecer autoestima, motivación y manejo emocional.", testimonial: '"El acompañamiento profesional me ayudó a ver la luz cuando todo parecía oscuro."', author: "- Roberto T." },
+                { img: adolescentes, title: "Adolescentes", desc: "Apoyo en etapas de cambio, identidad, relaciones y gestión de emociones.", testimonial: '"Me entendieron cuando nadie más lo hacía. Ahora me siento más seguro de mí mismo."', author: "- Javier, 16 años" },
+                { img: autoestima, title: "Autoestima y Crecimiento Personal", desc: "Desarrollo de confianza, autovaloración y habilidades emocionales.", testimonial: '"Aprendí a valorarme y establecer límites saludables en mis relaciones."', author: "- Sofía R." },
+                { img: Infantes, title: "Infantes", desc: "Estimulación emocional y social mediante juego terapéutico adaptado a la edad.", testimonial: '"Mi hijo mejoró su comportamiento y comunicación gracias a las sesiones lúdicas."', author: "- Patricia, madre de Lucas" },
+                { img: Colegio, title: "Colegios", desc: "Talleres de inteligencia emocional y prevención del bullying para estudiantes, familias y docentes.", testimonial: '"Los talleres transformaron el clima escolar. Los estudiantes ahora manejan mejor sus emociones."', author: "- Directora Colegio ABC" },
+                { img: Universidades, title: "Universidades", desc: "Orientación vocacional y apoyo emocional frente al estrés académico y la toma de decisiones.", testimonial: '"La orientación vocacional me ayudó a elegir mi carrera con seguridad y conocimiento."', author: "- Daniela, estudiante" }
+              ].map((service, index) => (
+                <div className="service-card" key={index}>
+                  <img src={service.img} alt={service.title} />
+                  <div className="service-content">
+                    <h3>{service.title}</h3>
+                    <p>{service.desc}</p>
+                    <div className="testimonial">
+                      <p className="testimonial-text">{service.testimonial}</p>
+                      <p className="testimonial-author">{service.author}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div id="inspiracion">
+          <div id="inspiracion" className="inspiration-section">
             <h2>Inspiración que nos guía</h2>
             <blockquote>
               “Una palabra amable puede ser breve y fácil de decir, pero su eco es verdaderamente infinito.” — Sigmund Freud
             </blockquote>
+            <h2>Galeria de fotos</h2>
+            <div className="inspiration-gallery">
+              <div className="carousel-container">
+                {inspirationImages.map((image, index) => (
+                  <div 
+                    key={index}
+                    className={`carousel-slide ${index === activeIndex ? 'active' : ''}`}
+                    style={{ backgroundImage: `url(${image.src})` }}
+                  >
+                    <div className="slide-caption">
+                      <p>{image.caption}</p>
+                    </div>
+                  </div>
+                ))}
+                <button className="carousel-btn prev" onClick={prevSlide}>&#10094;</button>
+                <button className="carousel-btn next" onClick={nextSlide}>&#10095;</button>
+              </div>
+              <div className="carousel-dots">
+                {inspirationImages.map((_, index) => (
+                  <span 
+                    key={index}
+                    className={`dot ${index === activeIndex ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(index)}
+                  ></span>
+                ))}
+              </div>
+            </div>
           </div>
-           <div id="ubicacion">
+
+          <div id="ubicacion">
             <h2>Ubicación y contacto</h2>
-            <ul>
+            <ul className="location-info">
               <li><strong>Edificio:</strong> Confort, Piso 6, Oficina 6E</li>
               <li><strong>Dirección:</strong> Av. Gualberto Villarroel y Pasaje Estrada</li>
               <li><strong>Ciudad:</strong> Cochabamba, Bolivia</li>
@@ -142,7 +223,26 @@ function Horizon() {
 
           <div id="contacto">
             <h2>Contacto</h2>
-            <ContactForm />
+            <ContactForm 
+  emailJSConfigs={[
+    { // Cuenta de tacmente
+      serviceID: 'service_51padbf',
+      templateID: 'template_j81kgo5',
+      publicKey: '2g-WnZ8whoiGaXM2Z'
+    },
+    { // Cuenta de oblis prueba colocar gabinete
+      serviceID: 'service_xw7wjmd',
+      templateID: 'template_l5b3yuf',
+      publicKey: 'vwMK6WF_7rga74meO'
+    }
+  ]}
+  initialData={{ subject: "Consulta desde página de inicio" }}
+  customMessages={{
+    intro: "¿Necesitas ayuda? Escríbenos",
+    success: "✓ Mensaje recibido. Te contactaremos pronto.",
+    error: "✗ Error. Por favor, contáctanos por teléfono."
+  }}
+/>
           </div>
         </section>
       </div>
@@ -150,4 +250,4 @@ function Horizon() {
   )
 }
 
-export default Horizon
+export default Horizon;

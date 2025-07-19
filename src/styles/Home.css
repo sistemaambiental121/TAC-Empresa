@@ -207,7 +207,7 @@ body {
 }
 
 .pulse-animation {
-  animation: pulse 2s infinite ease-in-out;
+  animation: pulse 0s infinite ease-in-out;
 }
 
 .tac-text {
@@ -356,6 +356,106 @@ body {
 .tac-card:hover p {
   color: #555;
 }
+/* Estilos para el carrusel de fotos */
+.gallery-section {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+}
+
+.gallery-title {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.gallery-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--secondary);
+}
+
+.gallery-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+  background: var(--primary);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dark-gray);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
 
 /* Stats Section */
 .stats-section {
@@ -550,7 +650,7 @@ body {
   display: flex;
   align-items: center;
   gap: 3rem;
-  background: var(--white);
+  background: var(--gray);
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
@@ -645,55 +745,111 @@ body {
 /* Contact Section */
 .contact-section {
   background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
-  padding: 5rem 1rem;
+  padding: 4rem 1rem;
 }
 
 .contact-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   background: var(--white);
   border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-  padding: 3rem;
-  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  align-items: flex-start;
 }
 
 .contact-info {
   flex: 1;
   min-width: 300px;
-  text-align: left;
 }
 
-.contact-info h2 {
+.section-title {
   color: var(--primary);
   font-size: 2rem;
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
-.contact-info p {
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary);
+}
+
+.contact-description {
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.contact-subdescription {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
 .contact-details {
-  margin: 2rem 0;
+  margin-top: 2rem;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+}
+
+.contact-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon-wrapper.whatsapp {
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.contact-icon-wrapper.email {
+  background: rgba(66, 133, 244, 0.1);
+}
+
+.contact-icon-wrapper.address {
+  background: rgba(234, 67, 53, 0.1);
 }
 
 .contact-icon {
-  font-size: 1.5rem;
-  color: var(--secondary);
+  width: 20px;
+  height: 20px;
+}
+
+.contact-link {
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.contact-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.contact-text {
+  font-size: 1rem;
+  color: var(--text);
 }
 
 .social-links {
@@ -702,27 +858,70 @@ body {
   margin-top: 2rem;
 }
 
-.social-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.social-link {
   width: 40px;
   height: 40px;
-  background: var(--gray);
   border-radius: 50%;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
 }
 
-.social-icon:hover {
-  background: var(--primary);
-  color: white;
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-link.facebook {
+  background: rgba(24, 119, 242, 0.1);
+  color: #1877F2;
+}
+
+.social-link.instagram {
+  background: rgba(228, 64, 95, 0.1);
+  color: #E4405F;
+}
+
+.social-link.linkedin {
+  background: rgba(10, 102, 194, 0.1);
+  color: #0A66C2;
+}
+
+.social-link:hover {
   transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.social-link.facebook:hover {
+  background: #1877F2;
+  color: white;
+}
+
+.social-link.instagram:hover {
+  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+  color: white;
+}
+
+.social-link.linkedin:hover {
+  background: #0A66C2;
+  color: white;
 }
 
 .contact-form-container {
   flex: 1;
   min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
 }
 
 /* Responsive */
@@ -926,4 +1125,42 @@ body {
   .testimonial-content {
     font-size: 1rem;
   }
+}
+/* Sección Gabinete Psicológico */
+.horizon-section {
+  padding: 2rem 1rem;
+}
+
+.horizon-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.horizon-card-text h2 {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.horizon-card-text h3 {
+  color: var(--primary-light);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.horizon-card-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 1.5rem;
 }

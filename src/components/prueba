@@ -2,81 +2,44 @@ import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import '../styles/ContactForm.css';
 
-const ContactForm = ({ 
-  emailJSConfigs = [
-    // Configuración por defecto (Cuenta 1)
-    {
-      serviceID: 'service_default_1',
-      templateID: 'template_default_1',
-      publicKey: 'public_key_default_1'
-    },
-    // Configuración por defecto (Cuenta 2)
-    {
-      serviceID: 'service_default_2',
-      templateID: 'template_default_2',
-      publicKey: 'public_key_default_2'
-    }
-  ],
-  initialData = {},
-  customMessages = {
-    intro: "Estaremos encantados de escucharte",
-    success: "✓ Mensaje enviado correctamente",
-    error: "✗ Error al enviar. Por favor, inténtalo nuevamente."
-  }
-}) => {
+const ContactForm = () => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState(null);
   const [focusedField, setFocusedField] = useState(null);
 
-  // Prellenar campos si hay initialData
-  React.useEffect(() => {
-    if (initialData && form.current) {
-      Object.entries(initialData).forEach(([key, value]) => {
-        if (form.current.elements[key]) {
-          form.current.elements[key].value = value;
-        }
-      });
-    }
-  }, [initialData]);
-
-  const sendEmail = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus(null);
 
-    try {
-      // Enviar a todas las configuraciones de EmailJS proporcionadas
-      await Promise.all(
-        emailJSConfigs.map(config => 
-          emailjs.sendForm(
-            config.serviceID,
-            config.templateID,
-            form.current,
-            config.publicKey
-          )
-        )
-      );
-
-      setStatus({ type: 'success', message: customMessages.success });
+    emailjs.sendForm(
+      'service_51padbf',
+      'template_j81kgo5',
+      form.current,
+      '2g-WnZ8whoiGaXM2Z'
+    )
+    .then(() => {
+      setStatus({ type: 'success', message: '✓ Mensaje enviado' });
       form.current.reset();
-    } catch (error) {
-      console.error('Error al enviar:', error);
-      setStatus({ type: 'error', message: customMessages.error });
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, () => {
+      setStatus({ type: 'error', message: '✗ Error al enviar' });
+    })
+    .finally(() => setIsSubmitting(false));
   };
 
-  const handleFocus = (fieldName) => setFocusedField(fieldName);
-  const handleBlur = () => setFocusedField(null);
+  const handleFocus = (fieldName) => {
+    setFocusedField(fieldName);
+  };
+
+  const handleBlur = () => {
+    setFocusedField(null);
+  };
 
   return (
     <div className="minimal-form-container">
-      <p className="form-intro animate-text">{customMessages.intro}</p>
+      <p className="form-intro animate-text">Estaremos encantados de escucharte</p>
       
       <form ref={form} onSubmit={sendEmail} className="minimal-form">
-        {/* Campo: Nombre */}
         <div className={`input-group ${focusedField === 'name' ? 'focused' : ''}`}>
           <input 
             type="text" 
@@ -90,12 +53,11 @@ const ContactForm = ({
           <div className="focus-dot"></div>
         </div>
 
-        {/* Campo: Email */}
         <div className={`input-group ${focusedField === 'email' ? 'focused' : ''}`}>
           <input 
             type="email" 
             name="user_email" 
-            placeholder="Correo electrónico" 
+            placeholder="Correo" 
             required 
             onFocus={() => handleFocus('email')}
             onBlur={handleBlur}
@@ -104,7 +66,6 @@ const ContactForm = ({
           <div className="focus-dot"></div>
         </div>
 
-        {/* Campo: Asunto */}
         <div className={`input-group ${focusedField === 'subject' ? 'focused' : ''}`}>
           <input 
             type="text" 
@@ -118,21 +79,19 @@ const ContactForm = ({
           <div className="focus-dot"></div>
         </div>
 
-        {/* Campo: Mensaje */}
         <div className={`input-group ${focusedField === 'message' ? 'focused' : ''}`}>
           <textarea 
             name="message" 
-            placeholder="Cuéntanos sobre ti..." 
-            rows="4" 
-            required 
+            placeholder="Cuéntanos sobre ti" 
+            rows="3" 
+            required
             onFocus={() => handleFocus('message')}
             onBlur={handleBlur}
-          />
+          ></textarea>
           <div className="input-line"></div>
           <div className="focus-dot"></div>
         </div>
 
-        {/* Botón de envío */}
         <button 
           type="submit" 
           disabled={isSubmitting} 
@@ -148,7 +107,6 @@ const ContactForm = ({
           )}
         </button>
 
-        {/* Mensaje de estado */}
         {status && (
           <div className={`status-message ${status.type} fade-in`}>
             {status.message}
